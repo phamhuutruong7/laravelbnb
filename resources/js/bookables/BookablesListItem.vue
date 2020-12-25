@@ -12,6 +12,9 @@ export default {
         'item-title': String,
         'item-content': String,
         'price': Number
+    },
+    mounted(){
+        console.log(this.itemTitle);
     }
 }
 </script>

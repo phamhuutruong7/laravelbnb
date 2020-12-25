@@ -10,6 +10,21 @@ import BookableListItem from "./BookablesListItem"
 export default {
     components: {
         BookableListItem
+    },
+    beforeCreate() {
+        console.log('before create');
+    },
+    created(){
+        console.log('before mount');
+    },
+    mounted(){
+        console.log('mounted');
+    },
+    beforeDestroy() {
+        console.log('before destroy');
+    },
+    destroyed(){
+        console.log('destroyed');
     }
 }
 </script>
