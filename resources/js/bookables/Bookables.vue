@@ -1,7 +1,21 @@
 <template>
     <div>
-        <bookable-list-item :item-title="bookable1.title " :item-content="bookable1.content" :price="1000"></bookable-list-item>
-        <bookable-list-item :item-title="bookable2.title" :item-content="bookable2.content" :price="1500"></bookable-list-item>
+        <div v-if="loading">Data is loading...</div>
+        <div v-else>
+            <div class="row mb-4" v-for="row in rows" :key="'row' + row">
+                <div
+                    class="col d-flex align-item"
+                    v-for="(bookable, column) in bookablesInRow(row)"
+                    :key="'row' + row + column"
+                >
+                    <bookable-list-item
+                        v-bind="bookable"
+                    ></bookable-list-item>
+                </div>
+                <div class="col" v-for="p in placeholdersInRow(row)" :key="'placeholder' + row + p"></div>
+            </div>
+        </div>
+
     </div>
 </template>
 
@@ -11,26 +25,36 @@ export default {
     components: {
         BookableListItem
     },
-    data(){
-        return{
-            bookable1: {
-                title: "Cheap Villa",
-                content: "A very cheap villa"
-            },
-            bookable2: {
-                title: "Cheap Villa 2",
-                content: "A very cheap villa 2"
-            }
+    data() {
+        return {
+            bookables: null,
+            loading: false,
+            columns: 3
+        };
+    },
+    computed: {
+        rows() {
+            return this.bookables === null
+                ? 0
+                : Math.ceil(this.bookables.length / this.columns);
+        }
+    },
+    methods: {
+        bookablesInRow(row) {
+            return this.bookables.slice((row - 1) * this.columns, row * this.columns);
+        },
+        placeholdersInRow(row) {
+            return this.columns - this.bookablesInRow(row).length;
         }
     },
     created(){
-        console.log('created');
-        console.log(this.bookable1);
-        console.log(this.bookable2);
-        setTimeout(() => {
-            this.bookable1.title = 'Expensive Villa';
-            this.bookable2.title = 'Very Expensive Villa';
-        }, 5000)
+        this.loading = true;
+        const request = axios
+            .get("/api/bookables")
+            .then(response => {
+                this.bookables = response.data.data;
+                this.loading = false;
+            });
     },
     mounted(){
         console.log('mounted');
