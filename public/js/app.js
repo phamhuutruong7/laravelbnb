@@ -2103,7 +2103,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 //import moment from "moment";
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -60368,12 +60367,10 @@ var render = function() {
                     "div",
                     { staticClass: "col-md-6 d-flex justify-content-end" },
                     [
-                      _vm._v(
-                        "\n                    " +
-                          _vm._s(review.rating) +
-                          "\n                    "
-                      ),
-                      _c("star-rating", { attrs: { rating: review.rating } })
+                      _c("star-rating", {
+                        staticClass: "fa-lg",
+                        attrs: { rating: review.rating }
+                      })
                     ],
                     1
                   )
