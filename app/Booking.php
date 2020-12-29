@@ -25,6 +25,11 @@ class Booking extends Model
         return $query->where('to', '>=', $from)->where('from', '<=', $to);
     }
 
+    public static function findByReviewKey(string $reviewKey) : ?Booking    //that question-mark means, expect Booking or null
+    {
+        return static::where('review_key', $reviewKey)->with('bookable')->get()->first();
+    }
+
     protected static function boot()
     {
         parent::boot();
