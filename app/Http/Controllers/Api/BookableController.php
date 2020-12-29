@@ -24,4 +24,6 @@ class BookableController extends Controller
     }
 
 
+
+
 }
