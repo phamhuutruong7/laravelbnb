@@ -2260,13 +2260,17 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     halfStar: function halfStar() {
-      return true;
+      var fraction = Math.round((this.rating - Math.floor(this.rating)) * 100);
+      return fraction > 0 && fraction < 50;
     },
     fullStars: function fullStars() {
-      return 3;
+      //>4.5 = 5 stars
+      //4.3 = 4 and half
+      return Math.round(this.rating);
     },
     emptyStars: function emptyStars() {
-      return 1;
+      //rating = 1.9, ceil(1.9) =  2 => 5 -2 = 3=> render 3 empty stars
+      return 5 - Math.ceil(this.rating);
     }
   }
 });
@@ -60369,7 +60373,7 @@ var render = function() {
                           _vm._s(review.rating) +
                           "\n                    "
                       ),
-                      _c("star-rating")
+                      _c("star-rating", { attrs: { rating: review.rating } })
                     ],
                     1
                   )

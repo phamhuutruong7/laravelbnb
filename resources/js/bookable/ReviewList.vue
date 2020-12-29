@@ -9,7 +9,7 @@
                     <div class="col-md-6">Pham</div>
                     <div class="col-md-6 d-flex justify-content-end">
                         {{ review.rating }}
-                        <star-rating></star-rating>
+                        <star-rating :rating="review.rating"></star-rating>
                     </div>
                 </div>
                 <div class="row">
