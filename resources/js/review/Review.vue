@@ -37,12 +37,18 @@
                                 rows="10"
                                 class="form-control"
                                 v-model="review.content"
+                                :class="[{'is-invalid': errorFor('content')}]"
                             ></textarea>
                         </div>
+                        <div
+                            class="invalid-feedback"
+                            v-for="(error, index) in this.errorFor('content')"
+                            :key="'content' + index"
+                        >{{ error }}</div>
 
                         <button class="btn btn-lg btn-primary btn-block"
                                 @click.prevent="submit"
-                                :disabled="loading">Submit</button>
+                                :disabled="sending">Submit</button>
                     </div>
                 </div>
             </div>
@@ -51,7 +57,7 @@
 </template>
 
 <script>
-import { is404 } from "./../shared/utils/response";
+import { is404, is422 } from "./../shared/utils/response";
 export default {
     data() {
         return {
@@ -63,7 +69,9 @@ export default {
             existingReview: null,
             loading: false,
             booking: null,
-            error: false
+            error: false,
+            errors: null,
+            sending: false
         };
     },
     created() {
@@ -85,11 +93,8 @@ export default {
                             this.booking = response.data.data;
                         })
                         .catch(err => {
-                            // is404(err) ? {} : (this.error = true);
                             this.error = !is404(err);
-                            // if (!is404(err)) {
-                            //   this.error = true;
-                            // }
+
                         });
                 }
                 this.error = true;
@@ -97,7 +102,7 @@ export default {
             .then(() => {
                 this.loading = false;
             });
-        // 3. Store the review
+
     },
     computed: {
         alreadyReviewed() {
@@ -118,12 +123,26 @@ export default {
     },
     methods: {
         submit(){
-            this.loading = true;
+            // 3. Store the review
+            this.errors = null;
+            this.sending = true;
             axios
                 .post(`/api/reviews`, this.review)
                 .then(response => console.log(response))
-                .catch((err) => this.error = true)
-                .then(() => (this.loading = false));
+                .catch(err => {
+                    if(is422(err)){
+                        const errors = err.response.data.errors;
+                        if(errors["content"] && 1 === _.size(errors)){
+                            this.errors = errors;
+                            return;
+                        }
+                    }
+                    this.error = true;
+                })
+                .then(() => (this.sending = false));
+        },
+        errorFor(field){
+            return null !== this.errors && this.errors[field] ? this.errors[field] : null;
         }
     }
 };
