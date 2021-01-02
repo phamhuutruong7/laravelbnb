@@ -1985,6 +1985,10 @@ __webpack_require__.r(__webpack_exports__);
 
       this.loading = true;
       this.errors = null;
+      this.$store.commit('setLastSearch', {
+        from: this.from,
+        to: this.to
+      });
       axios.get("/api/bookables/".concat(this.bookableId, "/availability?from=").concat(this.from, "&to=").concat(this.to)).then(function (response) {
         _this.status = response.status;
       })["catch"](function (error) {
@@ -2065,7 +2069,6 @@ __webpack_require__.r(__webpack_exports__);
     this.loading = false;
     axios.get("/api/bookables/".concat(this.$route.params.id)).then(function (response) {
       _this.bookable = response.data.data;
-      console.log(response.data.data.title);
       _this.loading = false;
     });
   }
