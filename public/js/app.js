@@ -1969,7 +1969,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   mixins: [_shared_mixins_validationErrors__WEBPACK_IMPORTED_MODULE_1__["default"]],
   props: {
-    bookableId: String
+    bookableId: [String, Number]
   },
   data: function data() {
     return {
@@ -2050,7 +2050,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      bookable: null
+      bookable: null //Js load too fast, it cause a dummy error here. Declare a variable for bookable then it will be fine/
+      //if not, just ignore the error, everything still fine. 
+
     };
   },
   components: {
@@ -2063,6 +2065,7 @@ __webpack_require__.r(__webpack_exports__);
     this.loading = false;
     axios.get("/api/bookables/".concat(this.$route.params.id)).then(function (response) {
       _this.bookable = response.data.data;
+      console.log(response.data.data.title);
       _this.loading = false;
     });
   }
@@ -2110,7 +2113,7 @@ __webpack_require__.r(__webpack_exports__);
 //import moment from "moment";
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
-    bookableId: String
+    bookableId: [String, Number]
   },
   data: function data() {
     return {
@@ -61267,12 +61270,6 @@ var render = function() {
             attrs: { to: { name: "home" } }
           },
           [_vm._v("LaravelBnb")]
-        ),
-        _vm._v(" "),
-        _c(
-          "router-link",
-          { staticClass: "btn nav-button", attrs: { to: { name: "Second" } } },
-          [_vm._v("Second")]
         )
       ],
       1
@@ -61480,7 +61477,12 @@ var render = function() {
       1
     ),
     _vm._v(" "),
-    _c("div", { staticClass: "col-md-4" }, [_c("availability")], 1)
+    _c(
+      "div",
+      { staticClass: "col-md-4" },
+      [_c("availability", { attrs: { "bookable-id": this.$route.params.id } })],
+      1
+    )
   ])
 }
 var staticRenderFns = []
@@ -61811,7 +61813,7 @@ var render = function() {
                                     staticClass: "text-muted",
                                     attrs: { for: "content" }
                                   },
-                                  [_vm._v("Describe your expirience with")]
+                                  [_vm._v("Describe your experience with")]
                                 ),
                                 _vm._v(" "),
                                 _c("textarea", {

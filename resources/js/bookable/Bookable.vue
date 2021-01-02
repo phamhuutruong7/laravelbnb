@@ -14,7 +14,7 @@
             <review-list :bookable-id="this.$route.params.id"></review-list>
         </div>
         <div class="col-md-4">
-            <availability></availability>
+            <availability :bookable-id="this.$route.params.id"></availability>
         </div>
     </div>
 </template>
@@ -26,7 +26,8 @@ import ReviewList from "./ReviewList";
 export default{
     data(){
         return{
-            bookable: null
+            bookable: null      //Js load too fast, it cause a dummy error here. Declare a variable for bookable then it will be fine/
+                                //if not, just ignore the error, everything still fine. 
         }
     },
     components:{
@@ -38,6 +39,7 @@ export default{
         axios.get(`/api/bookables/${this.$route.params.id}`)
         .then(response => {
             this.bookable = response.data.data;
+            console.log(response.data.data.title);
             this.loading = false;
         });
     }
