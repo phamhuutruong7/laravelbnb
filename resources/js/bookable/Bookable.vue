@@ -27,7 +27,7 @@ export default{
     data(){
         return{
             bookable: null      //Js load too fast, it cause a dummy error here. Declare a variable for bookable then it will be fine/
-                                //if not, just ignore the error, everything still fine. 
+                                //if not, just ignore the error, everything still fine.
         }
     },
     components:{
