@@ -14,7 +14,7 @@
             <review-list :bookable-id="this.$route.params.id"></review-list>
         </div>
         <div class="col-md-4">
-            <availability :bookable-id="this.$route.params.id"></availability>
+            <availability :bookable-id="this.$route.params.id" @availability="checkPrice($event)"></availability>
         </div>
     </div>
 </template>
@@ -22,12 +22,15 @@
 <script>
 import Availability from "./Availability";
 import ReviewList from "./ReviewList";
+import { mapState } from "vuex";
 
 export default{
     data(){
         return{
-            bookable: null      //Js load too fast, it cause a dummy error here. Declare a variable for bookable then it will be fine/
+            bookable: null,      //Js load too fast, it cause a dummy error here. Declare a variable for bookable then it will be fine/
                                 //if not, just ignore the error, everything still fine.
+            loading: false,
+            price: null
         }
     },
     components:{
@@ -41,6 +44,23 @@ export default{
             this.bookable = response.data.data;
             this.loading = false;
         });
+    },
+    computed: mapState({
+        lastSearch: "lastSearch"
+    }),
+    methods: {
+        async checkPrice(hasAvailability){
+            if(!hasAvailability){
+                this.price = null;
+                return;
+            }
+
+            try{
+                this.price = (await axios.get(`/api/bookables/${this.bookable.id}/availability?from=${this.lastSearch.from}&to=${this.lastSearch.to}`)).data.data;
+            } catch(err){
+                this.price = null;
+            }
+        }
     }
 }
 </script>

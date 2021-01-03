@@ -1965,8 +1965,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _shared_utils_response__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../shared/utils/response */ "./resources/js/shared/utils/response.js");
-/* harmony import */ var _shared_mixins_validationErrors__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../shared/mixins/validationErrors */ "./resources/js/shared/mixins/validationErrors.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _shared_utils_response__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../shared/utils/response */ "./resources/js/shared/utils/response.js");
+/* harmony import */ var _shared_mixins_validationErrors__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../shared/mixins/validationErrors */ "./resources/js/shared/mixins/validationErrors.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
 //
 //
 //
@@ -2018,14 +2027,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mixins: [_shared_mixins_validationErrors__WEBPACK_IMPORTED_MODULE_1__["default"]],
+  mixins: [_shared_mixins_validationErrors__WEBPACK_IMPORTED_MODULE_2__["default"]],
   props: {
     bookableId: [String, Number]
   },
   data: function data() {
     return {
-      from: this.$store.state.lastSearch.from || null,
-      to: this.$store.state.lastSearch.to || null,
+      from: this.$store.state.lastSearch.from,
+      to: this.$store.state.lastSearch.to,
       loading: false,
       status: null
     };
@@ -2034,23 +2043,53 @@ __webpack_require__.r(__webpack_exports__);
     check: function check() {
       var _this = this;
 
-      this.loading = true;
-      this.errors = null;
-      this.$store.dispatch('setLastSearch', {
-        from: this.from,
-        to: this.to
-      });
-      axios.get("/api/bookables/".concat(this.bookableId, "/availability?from=").concat(this.from, "&to=").concat(this.to)).then(function (response) {
-        _this.status = response.status;
-      })["catch"](function (error) {
-        if (Object(_shared_utils_response__WEBPACK_IMPORTED_MODULE_0__["is422"])(error)) {
-          _this.errors = error.response.data.errors;
-        }
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _this.loading = true;
+                _this.errors = null;
 
-        _this.status = error.response.status;
-      }).then(function () {
-        return _this.loading = false;
-      });
+                _this.$store.dispatch("setLastSearch", {
+                  from: _this.from,
+                  to: _this.to
+                });
+
+                _context.prev = 3;
+                _context.next = 6;
+                return axios.get("/api/bookables/".concat(_this.bookableId, "/availability?from=").concat(_this.from, "&to=").concat(_this.to));
+
+              case 6:
+                _this.status = _context.sent.status;
+
+                _this.$emit("availability", _this.hasAvailability);
+
+                _context.next = 15;
+                break;
+
+              case 10:
+                _context.prev = 10;
+                _context.t0 = _context["catch"](3);
+
+                if (Object(_shared_utils_response__WEBPACK_IMPORTED_MODULE_1__["is422"])(_context.t0)) {
+                  _this.errors = _context.t0.response.data.errors;
+                }
+
+                _this.status = _context.t0.response.status;
+
+                _this.$emit("availability", _this.hasAvailability);
+
+              case 15:
+                _this.loading = false;
+
+              case 16:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, null, [[3, 10]]);
+      }))();
     }
   },
   computed: {
@@ -2077,8 +2116,17 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Availability__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Availability */ "./resources/js/bookable/Availability.vue");
-/* harmony import */ var _ReviewList__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ReviewList */ "./resources/js/bookable/ReviewList.vue");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _Availability__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Availability */ "./resources/js/bookable/Availability.vue");
+/* harmony import */ var _ReviewList__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ReviewList */ "./resources/js/bookable/ReviewList.vue");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 //
 //
 //
@@ -2100,19 +2148,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      bookable: null //Js load too fast, it cause a dummy error here. Declare a variable for bookable then it will be fine/
+      bookable: null,
+      //Js load too fast, it cause a dummy error here. Declare a variable for bookable then it will be fine/
       //if not, just ignore the error, everything still fine.
-
+      loading: false,
+      price: null
     };
   },
   components: {
-    Availability: _Availability__WEBPACK_IMPORTED_MODULE_0__["default"],
-    ReviewList: _ReviewList__WEBPACK_IMPORTED_MODULE_1__["default"]
+    Availability: _Availability__WEBPACK_IMPORTED_MODULE_1__["default"],
+    ReviewList: _ReviewList__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   created: function created() {
     var _this = this;
@@ -2122,6 +2173,50 @@ __webpack_require__.r(__webpack_exports__);
       _this.bookable = response.data.data;
       _this.loading = false;
     });
+  },
+  computed: Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapState"])({
+    lastSearch: "lastSearch"
+  }),
+  methods: {
+    checkPrice: function checkPrice(hasAvailability) {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                if (hasAvailability) {
+                  _context.next = 3;
+                  break;
+                }
+
+                _this2.price = null;
+                return _context.abrupt("return");
+
+              case 3:
+                _context.prev = 3;
+                _context.next = 6;
+                return axios.get("/api/bookables/".concat(_this2.bookable.id, "/availability?from=").concat(_this2.lastSearch.from, "&to=").concat(_this2.lastSearch.to));
+
+              case 6:
+                _this2.price = _context.sent.data.data;
+                _context.next = 12;
+                break;
+
+              case 9:
+                _context.prev = 9;
+                _context.t0 = _context["catch"](3);
+                _this2.price = null;
+
+              case 12:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, null, [[3, 9]]);
+      }))();
+    }
   }
 });
 
@@ -7040,7 +7135,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\nlabel[data-v-39d99139] {\n    font-size: 0.7rem;\n    text-transform: uppercase;\n    color: gray;\n    font-weight: bold;\n}\n.is-invalid[data-v-39d99139]{\n    border-color: #b22222;\n    background-image: none;\n}\n.invalid-feedback[data-v-39d99139]{\n    color: #b22222;\n}\n", ""]);
+exports.push([module.i, "\nlabel[data-v-39d99139] {\n    font-size: 0.7rem;\n    text-transform: uppercase;\n    color: gray;\n    font-weight: bolder;\n}\n.is-invalid[data-v-39d99139] {\n    border-color: #b22222;\n    background-image: none;\n}\n.invalid-feedback[data-v-39d99139] {\n    color: #b22222;\n}\n", ""]);
 
 // exports
 
@@ -61364,8 +61459,8 @@ var render = function() {
       "h6",
       { staticClass: "text-uppercase text-secondary font-weight-bolder" },
       [
-        _vm._v("\n        Check availability\n        "),
-        _c("transition", [
+        _vm._v("\n        Check Availability\n        "),
+        _c("transition", { attrs: { name: "fade" } }, [
           _vm.noAvailability
             ? _c("span", { staticClass: "text-danger" }, [
                 _vm._v("(NOT AVAILABLE)")
@@ -61400,12 +61495,7 @@ var render = function() {
             ],
             staticClass: "form-control form-control-sm",
             class: [{ "is-invalid": _vm.errorFor("from") }],
-            attrs: {
-              type: "text",
-              name: "from",
-              placeholder: "Start date",
-              value: "Initial"
-            },
+            attrs: { type: "text", name: "from", placeholder: "Start date" },
             domProps: { value: _vm.from },
             on: {
               keyup: function($event) {
@@ -61480,11 +61570,7 @@ var render = function() {
       {
         staticClass: "btn btn-secondary btn-block",
         attrs: { disabled: _vm.loading },
-        on: {
-          click: function($event) {
-            return _vm.check()
-          }
-        }
+        on: { click: _vm.check }
       },
       [
         !_vm.loading ? _c("span", [_vm._v("Check!")]) : _vm._e(),
@@ -61492,7 +61578,7 @@ var render = function() {
         _vm.loading
           ? _c("span", [
               _c("i", { staticClass: "fas fa-circle-notch fa-spin" }),
-              _vm._v(" Checking...")
+              _vm._v(" Checking...\n  ")
             ])
           : _vm._e()
       ]
@@ -61548,7 +61634,16 @@ var render = function() {
     _c(
       "div",
       { staticClass: "col-md-4" },
-      [_c("availability", { attrs: { "bookable-id": this.$route.params.id } })],
+      [
+        _c("availability", {
+          attrs: { "bookable-id": this.$route.params.id },
+          on: {
+            availability: function($event) {
+              return _vm.checkPrice($event)
+            }
+          }
+        })
+      ],
       1
     )
   ])
