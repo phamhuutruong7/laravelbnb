@@ -43,12 +43,16 @@ class CheckoutController extends Controller
         $bookingsData = $data['bookings'];
         $addressData = $data['customer'];
 
+
+        //this map is for lamda function to make many booking at the same time.
         $bookings = collect($bookingsData)->map(function($bookingData) use ($addressData){
+            $bookable = Bookable::findOrFail($bookingData['bookable_id']);
             $booking = new Booking();
             $booking->from = $bookingData['from'];
             $booking->to = $bookingData['to'];
-            $booking->price = 200;
+            $booking->price = $bookable->pricefor($booking->from, $booking->to)['total'];
             $booking->bookable_id = $bookingData['bookable_id'];
+            $booking->bookable()->associate($bookable);
 
             $booking->address()->associate(Address::create($addressData));  //create is for mass-assigment in Address model. Can only do this when it has $fillable
             $booking->save();
