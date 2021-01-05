@@ -2142,22 +2142,24 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 });
 
               case 4:
-                _context.next = 8;
+                _this.$store.dispatch("clearBasket");
+
+                _context.next = 9;
                 break;
 
-              case 6:
-                _context.prev = 6;
+              case 7:
+                _context.prev = 7;
                 _context.t0 = _context["catch"](1);
 
-              case 8:
+              case 9:
                 _this.loading = false;
 
-              case 9:
+              case 10:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[1, 6]]);
+        }, _callee, null, [[1, 7]]);
       }))();
     }
   }
@@ -80841,6 +80843,15 @@ __webpack_require__.r(__webpack_exports__);
           state = _ref2.state;
       commit('removeFromBasket', payload);
       localStorage.setItem('basket', JSON.stringify(state.basket));
+    },
+    clearBasket: function clearBasket(_ref3, payload) {
+      var commit = _ref3.commit,
+          state = _ref3.state;
+      //context.state, context.commit
+      commit("setBasket", {
+        items: []
+      });
+      localStorage.setItem("basket", JSON.stringify(state.basket));
     }
   },
   getters: {

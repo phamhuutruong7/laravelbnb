@@ -143,6 +143,8 @@ export default {
                         to: basketItem.dates.to
                     }))
                 });
+
+                this.$store.dispatch("clearBasket");
             } catch (err) {}
             this.loading = false;
         }

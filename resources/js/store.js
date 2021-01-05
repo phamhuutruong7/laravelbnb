@@ -45,6 +45,11 @@ export default{
         removeFromBasket({commit, state}, payload){
             commit('removeFromBasket', payload);
             localStorage.setItem('basket', JSON.stringify(state.basket));
+        },
+        clearBasket({commit, state}, payload){
+            //context.state, context.commit
+            commit("setBasket", { items: [] });
+            localStorage.setItem("basket", JSON.stringify(state.basket));
         }
     },
     getters: {
