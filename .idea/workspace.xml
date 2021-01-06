@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="478ffbc4-5d85-42a6-b034-a7fbc19dbee3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/resources/js/shared/utils/auth.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/auth/Login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/auth/Login.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -163,7 +160,7 @@
       <updated>1608758086037</updated>
       <workItem from="1608758087511" duration="2325000" />
       <workItem from="1608847800108" duration="90889000" />
-      <workItem from="1609796083559" duration="25513000" />
+      <workItem from="1609796083559" duration="26656000" />
     </task>
     <servers />
   </component>

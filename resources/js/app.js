@@ -18,6 +18,18 @@ Vue.component("fatal-error", FatalError);
 Vue.component("success", Success);
 Vue.component("v-errors", ValidationErrors);
 const store = new Vuex.Store(storeDefinition);
+
+//this will be called by axios when receive response from server.
+window.axios.interceptors.response.use(
+    response => response,
+    error => {
+        if(401 === error.response.status){
+            store.dispatch("logout");
+        }
+        return Promise.reject(error);
+    }
+);
+
 const app = new Vue({
     el: "#app",
     router,
