@@ -93,14 +93,12 @@ export default {
             this.loading = true;
             this.errors = null;
             try {
-                await axios.get("/sanctum/csrf-cookie");
-                await axios.post("/login", {
-                    email: this.email,
-                    password: this.password
-                });
-                logIn();
-                this.$store.dispatch("loadUser");
-                this.$router.push({ name: "home" });
+                const response = await axios.post("/register", this.user);
+                if(201 == response.status){
+                    logIn();
+                    this.$store.dispatch("loadUser");
+                    this.$router.push({ name: "home" });
+                }
             } catch (error) {
                 this.errors = error.response && error.response.data.errors;
             }
