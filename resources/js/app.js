@@ -1,40 +1,40 @@
-
-require('./bootstrap');
-
-import router from "./routes";
-import VueRouter from  "vue-router";
-import Vuex from "vuex";
-import Index from "./Index";
+require("./bootstrap");
 import moment from "moment";
-import StarRating from "./shared/components/StarRating";
+import VueRouter from "vue-router";
+import Vuex from 'vuex';
+import Index from "./Index";
+import router from "./routes";
 import FatalError from "./shared/components/FatalError";
+import StarRating from "./shared/components/StarRating";
 import Success from "./shared/components/Success";
 import ValidationErrors from "./shared/components/ValidationErrors";
-import storeDefinition from "./store.js";
-
-window.Vue = require('vue');
-
+import storeDefinition from "./store";
+window.Vue = require("vue");
 Vue.use(VueRouter);
 Vue.use(Vuex);
-
 Vue.filter("fromNow", value => moment(value).fromNow());
-
 Vue.component("star-rating", StarRating);
 Vue.component("fatal-error", FatalError);
 Vue.component("success", Success);
 Vue.component("v-errors", ValidationErrors);
-
 const store = new Vuex.Store(storeDefinition);
-
 const app = new Vue({
-    el: '#app',
-    router: router,
+    el: "#app",
+    router,
     store,
     components: {
-        "index" : Index
+        index: Index
     },
-    beforeCreate(){
-        this.$store.dispatch("loadStoredState");
-    }
-});
 
+        async beforeCreate() {
+            this.$store.dispatch("loadStoredState");
+
+            await axios.get('/sanctum/csrf-cookie');
+            await axios.post("/login", {
+                email: 'mmaggio@example.com',
+                password: 'password'
+            });
+
+            await axios.get('/user');
+        },
+    });
